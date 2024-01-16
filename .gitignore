@@ -47,3 +47,7 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# stupid .DS_Store files produced by macs
+.DS_Store
+
