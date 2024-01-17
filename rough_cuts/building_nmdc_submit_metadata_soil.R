@@ -216,7 +216,7 @@ indiv1 <- combo1 %>%
   mutate(sampleBottomMeters = sampleBottomDepth/100) %>%
   mutate(sampleTopMeters = sampleTopDepth/100) %>%
   mutate(depth = paste(sampleTopMeters,sampleBottomMeters, sep=" - ")) %>%
-  mutate(geo_location = paste(decimalLatitude, " ", decimalLongitude)) %>%
+  mutate(geo_location = paste0(decimalLatitude, " ", decimalLongitude)) %>% # changed paste to paste0
   mutate(sampleName = sampleID) %>%
   separate(collectDate, c("collectJustDate","collectTime"), sep = " ") %>%
   mutate(collectDate = collectJustDate) %>%
