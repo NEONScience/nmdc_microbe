@@ -1,0 +1,181 @@
+plotID	nlcdClass	envoBroadScale_id	envoBroadScale_label	envoLocalScale_id	envoLocalScale_label
+HARV_034	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+HARV_033	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+HARV_035	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+HARV_037	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+HARV_013	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+HARV_001	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+HARV_004	mixedForest	ENVO:01000198	mixed forest biome	ENVO:01000431	mixed forest
+HARV_021	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+HARV_002	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+HARV_005	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+OSBS_002	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+OSBS_001	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+UNDE_043	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+UNDE_006	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+UNDE_008	mixedForest	ENVO:01000212	temperate mixed forest biome	ENVO:01001796	temperate mixed forest
+UNDE_002	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+UNDE_044	mixedForest	ENVO:01000212	temperate mixed forest biome	ENVO:01001796	temperate mixed forest
+UNDE_038	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+UNDE_037	mixedForest	ENVO:01000212	temperate mixed forest biome	ENVO:01001796	temperate mixed forest
+UNDE_010	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+UNDE_003	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+UNDE_001	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_006	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_007	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_067	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_063	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_061	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_064	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_001	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_005	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_003	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+MLBS_002	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_001	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_002	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_003	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_049	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_046	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_043	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_053	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_004	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+ORNL_027	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+ORNL_006	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+LENO_001	deciduousForest	ENVO:01000201	subtropical broadleaf forest biome	ENVO:01000816	area of deciduous forest
+LENO_005	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+LENO_064	deciduousForest	ENVO:01000201	subtropical broadleaf forest biome	ENVO:01000816	area of deciduous forest
+LENO_004	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+LENO_061	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+LENO_006	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+LENO_062	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+LENO_003	deciduousForest	ENVO:01000201	subtropical broadleaf forest biome	ENVO:01000816	area of deciduous forest
+LENO_002	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+TALL_047	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+TALL_054	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+TALL_051	mixedForest	ENVO:01000198	mixed forest biome	ENVO:01000431	mixed forest
+TALL_002	mixedForest	ENVO:01000198	mixed forest biome	ENVO:01000431	mixed forest
+TALL_007	deciduousForest	ENVO:01000201	subtropical broadleaf forest biome	ENVO:01000816	area of deciduous forest
+TALL_001	deciduousForest	ENVO:01000201	subtropical broadleaf forest biome	ENVO:01000816	area of deciduous forest
+TALL_004	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+TALL_006	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+TALL_003	mixedForest	ENVO:01000198	mixed forest biome	ENVO:01000431	mixed forest
+DCFS_065	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_062	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_067	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_063	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_007	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_008	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_006	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_004	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_009	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+DCFS_003	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_024	emergentHerbaceousWetlands	ENVO:01000195	flooded grassland biome	ENVO:01000894	area of emergent herbaceous wetland
+WOOD_045	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_044	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_042	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_043	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_001	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_004	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_003	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_002	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+WOOD_005	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_048	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_004	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_047	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_046	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_005	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_002	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_006	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_003	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+CPER_045	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+YELL_051	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+YELL_048	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+YELL_046	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+YELL_002	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+YELL_052	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+YELL_012	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+YELL_009	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+YELL_003	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+YELL_016	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+YELL_005	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+ONAQ_041	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+ONAQ_042	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+ONAQ_002	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+ONAQ_043	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+ONAQ_044	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+ONAQ_008	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+ONAQ_005	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+ONAQ_010	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+ONAQ_004	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+WREF_071	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_007	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_008	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_003	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_072	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_004	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SJER_046	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SJER_045	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SJER_001	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+SJER_002	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+SJER_047	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SJER_048	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SJER_003	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SJER_004	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+SJER_025	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SJER_005	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+TOOL_041	sedgeHerbaceous	ENVO:01000180	tundra biome	ENVO:01000887	area of sedge- and forb-dominated herbaceous vegetation
+TOOL_043	sedgeHerbaceous	ENVO:01000180	tundra biome	ENVO:01000887	area of sedge- and forb-dominated herbaceous vegetation
+TOOL_042	sedgeHerbaceous	ENVO:01000180	tundra biome	ENVO:01000887	area of sedge- and forb-dominated herbaceous vegetation
+TOOL_044	sedgeHerbaceous	ENVO:01000180	tundra biome	ENVO:01000887	area of sedge- and forb-dominated herbaceous vegetation
+TOOL_003	sedgeHerbaceous	ENVO:01000180	tundra biome	ENVO:01000887	area of sedge- and forb-dominated herbaceous vegetation
+TOOL_004	dwarfScrub	ENVO:01000180	tundra biome	ENVO:01000861	area of dwarf scrub
+TOOL_005	dwarfScrub	ENVO:01000180	tundra biome	ENVO:01000861	area of dwarf scrub
+TOOL_001	dwarfScrub	ENVO:01000180	tundra biome	ENVO:01000861	area of dwarf scrub
+TOOL_002	dwarfScrub	ENVO:01000180	tundra biome	ENVO:01000861	area of dwarf scrub
+TOOL_006	shrubScrub	ENVO:01000180	tundra biome	ENVO:01000869	area of scrub
+BONA_001	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+BONA_013	mixedForest	ENVO:01000212	temperate mixed forest biome	ENVO:01001796	temperate mixed forest
+BONA_006	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+BONA_009	shrubScrub	ENVO:01000180	tundra biome	ENVO:01000869	area of scrub
+BONA_002	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+BONA_071	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+BONA_004	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+BONA_070	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+BONA_084	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+BONA_080	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+DEJU_048	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+DEJU_045	shrubScrub	ENVO:01000180	tundra biome	ENVO:01000869	area of scrub
+DEJU_046	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+DEJU_047	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+DEJU_014	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+DEJU_009	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+DEJU_006	evergreenForest	ENVO:01000250	subpolar coniferous forest biome	ENVO:01000843	area of evergreen forest
+DEJU_001	shrubScrub	ENVO:01000180	tundra biome	ENVO:01000869	area of scrub
+DEJU_002	shrubScrub	ENVO:01000180	tundra biome	ENVO:01000869	area of scrub
+DEJU_015	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+PUUM_036	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_010	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_006	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_042	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_014	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_034	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_040	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_015	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_007	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+PUUM_004	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+SCBI_003	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+SCBI_004	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+SCBI_006	pastureHay	ENVO:01000245	cropland biome	ENVO:01000891	area of pastureland or hayfields
+SCBI_007	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+SCBI_010	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+SCBI_045	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+SCBI_047	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+SCBI_049	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+SCBI_067	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+SJER_025	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SRER_001	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SRER_002	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SRER_003	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SRER_004	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SRER_043	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SRER_047	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub

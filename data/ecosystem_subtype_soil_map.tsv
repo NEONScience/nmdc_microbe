@@ -1,0 +1,12 @@
+nlcdClass	ecosystem_subtype	specific_ecosystem
+evergreenForest	Forest	Bulk soil
+deciduousForest	Forest	Bulk soil
+mixedForest	Forest	Bulk soil
+woodyWetlands	Wetlands	Unclassified
+pastureHay	Pasture	Bulk soil
+grasslandHerbaceous	Grasslands	Bulk soil
+cultivatedCrops	Agricultural land	Bulk soil
+emergentHerbaceousWetlands	Wetlands	Unclassified
+shrubScrub	Shrubland	Bulk soil
+sedgeHerbaceous	Tundra	Permafrost
+dwarfScrub	Tundra	Permafrost

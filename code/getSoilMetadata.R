@@ -223,7 +223,7 @@ indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
 ## add envo and GOLD
 ### envo
 
-envoMap <- read_delim("/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/submission_sandbox/envo_map_plate1_plots.tsv",
+envoMap <- read_delim("/Users/crossh/repos/nmdc_microbe/data/envo_map_soil_plots.tsv",
                       delim = "\t",show_col_types = FALSE)
 
 #View(envoMap)
@@ -255,7 +255,7 @@ indiv3['environmental package'] <- "soil"
 
 ## subtypes 
 
-subtypeMap <- read_delim("/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/submission_sandbox/ecosystem_subtype_map.tsv",
+subtypeMap <- read_delim("/Users/crossh/repos/nmdc_microbe/data/ecosystem_subtype_soil_map.tsv",
            delim="\t",show_col_types = FALSE)
 
 #View(subtypeMap)

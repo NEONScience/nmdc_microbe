@@ -1,5 +1,5 @@
 ---
-inputSampleFile: /Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/AY2023_JGI_plate01_samples.csv
+inputSampleFile: /Users/crossh/repos/nmdc_microbe/data/AY2023_JGI_plate01_samples.csv
 startDate: 2023-01
 plateName: NEON-JGI_AY23_plt01
 metadataFileName: NEON-JGI_AY23_plt01_metadata.xlsx
