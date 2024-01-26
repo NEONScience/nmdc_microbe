@@ -1,0 +1,6 @@
+---
+inputSampleFile: /Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/AY2023_JGI_plate02_sampleCSV.csv
+startDate: 2023-01
+plateName: NEON-JGI_AY23_plt02
+metadataFileName: NEON-JGI_AY23_plt02_metadata.xlsx
+jgiMetadataFileName: NEON-JGI_AY23_plt02_jgi_metadata.xlsx
