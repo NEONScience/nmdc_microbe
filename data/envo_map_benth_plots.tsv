@@ -1,0 +1,21 @@
+habitatType	aquMicrobeType	aquaticSiteType	envoBroadScale_id	envoBroadScale_label	envoLocalScale_id	envoLocalScale_label	envoMedium_id	envoMedium_label
+riffle	epilithon	stream	ENVO:03605008	freshwater stream biome	ENVO:00000148	riffle	ENVO:03605001	epilithon
+run	epilithon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600095	stream run	ENVO:03605001	epilithon
+pool	epilithon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600094	stream pool	ENVO:03605001	epilithon
+stepPool	epilithon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600096	step pool	ENVO:03605001	epilithon
+riffle	epixylon	stream	ENVO:03605008	freshwater stream biome	ENVO:00000148	riffle	ENVO:03605005	epixylon
+run	epixylon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600095	stream run	ENVO:03605005	epixylon
+pool	epixylon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600094	stream pool	ENVO:03605005	epixylon
+stepPool	epixylon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600096	step pool	ENVO:03605005	epixylon
+riffle	epiphyton	stream	ENVO:03605008	freshwater stream biome	ENVO:00000148	riffle	ENVO:03605003	epiphyton
+run	epiphyton	stream	ENVO:03605008	freshwater stream biome	ENVO:03600095	stream run	ENVO:03605003	epiphyton
+pool	epiphyton	stream	ENVO:03605008	freshwater stream biome	ENVO:03600094	stream pool	ENVO:03605003	epiphyton
+stepPool	epiphyton	stream	ENVO:03605008	freshwater stream biome	ENVO:03600096	step pool	ENVO:03605003	epiphyton
+riffle	epipelon	stream	ENVO:03605008	freshwater stream biome	ENVO:00000148	riffle	ENVO:03605002	epipelon
+run	epipelon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600095	stream run	ENVO:03605002	epipelon
+pool	epipelon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600094	stream pool	ENVO:03605002	epipelon
+stepPool	epipelon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600096	step pool	ENVO:03605002	epipelon
+riffle	epipsammon	stream	ENVO:03605008	freshwater stream biome	ENVO:00000148	riffle	ENVO:03605004	epipsammon
+run	epipsammon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600095	stream run	ENVO:03605004	epipsammon
+pool	epipsammon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600094	stream pool	ENVO:03605004	epipsammon
+stepPool	epipsammon	stream	ENVO:03605008	freshwater stream biome	ENVO:03600096	step pool	ENVO:03605004	epipsammon
