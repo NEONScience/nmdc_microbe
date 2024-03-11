@@ -1,4 +1,4 @@
-parentSampleID	aquaticSiteType	envoBroadScale_id	envoBroadScale_label	envoLocalScale_id	envoLocalScale_label	envoMedium_id	envoMedium_label
+sampleID	aquaticSiteType	envoBroadScale_id	envoBroadScale_label	envoLocalScale_id	envoLocalScale_label	envoMedium_id	envoMedium_label
 LEWI.SS.20230724	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
 POSE.SS.20230717	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
 CUPE.SS.20230711	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
