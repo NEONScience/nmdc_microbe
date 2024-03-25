@@ -2,7 +2,7 @@
 
 library(tidyverse)
 library(neonUtilities)
-#library(respirometry)
+#librairy(respirometry)
 #library(restR2) # maybe not needed
 library(yaml)
 library(writexl)
@@ -38,7 +38,7 @@ inputSampleTable <- read_excel(vars$inputSampleFile)
 View(inputSampleTable)
 
 # filter out blank rows, and ensure all sample names are upper case
-inputSampleTable <- inputSampleTable %>%
+nputSampleTable <- inputSampleTable %>%
   filter(dnaSampleID != "LEAVE BLANK") %>%
   mutate(dnaSampleID = toupper(dnaSampleID)) %>%
   mutate(dataProduct = case_when(grepl("SS",dnaSampleID) ~ "water",

@@ -39,6 +39,7 @@ View(inputSampleTable)
 inputSampleTable <- inputSampleTable %>%
   filter(dnaSampleID != "LEAVE BLANK") %>%
   mutate(dnaSampleID = toupper(dnaSampleID)) %>%
+  mutate(sampleID = gsub("\\.DNA-DNA[1-2]","",dnaSampleID)) %>%
   mutate(category = case_when(grepl("SS",dnaSampleID) ~ "water",
                               grepl("C[0-3]",dnaSampleID) ~ "water",
                               grepl("EPILITHON",dnaSampleID) ~ "biofilm",
@@ -78,6 +79,12 @@ benthicParents <- sapply(benthicGenSamples, function(x) gsub(".DNA","",x))
 benthicSites <- unique(sapply(str_split(benthicSamples,"\\."), getElement, 1))
 benthicSites
 
+## GOLD terms
+# ecosystem = "Environmental"
+# ecosystem_category = "Aquatic"
+# ecosystem_type = "Freshwater"
+# ecosystem_subtype = one of "Creek", "Lake","River"
+# specific_ecosystem = ""
 # now get metadata for water and benthic
 ## water
 swParentData <- loadByProduct(
@@ -94,15 +101,31 @@ View(swParentData$amc_fieldSuperParent)
 
 waterMeta <- swParentData$amc_fieldSuperParent %>%
   filter(parentSampleID %in% waterParents) %>%
+  mutate(sampleID = parentSampleID) %>%
+  mutate(sampleCode = sapply(str_split(parentSampleID,"\\."), getElement, 2)) %>%
   separate(collectDate, c("collection date","collection time, GMT"), sep = " ") %>%
   mutate(`geographic location (latitude and longitude)` = paste0(decimalLatitude, " ", decimalLongitude)) %>%
-  select(parentSampleID,siteID,aquaticSiteType,`geographic location (latitude and longitude)`,
-         elevation,`collection date`,`collection time, GMT`,waterTemp)
+  mutate(temperature = paste0(round(waterTemp,0)," degree Celsius")) %>%
+  mutate(depth = case_when((aquaticSiteType == "lake" & sampleCode == "C2") ~ paste0(lakeSampleDepth1," - ",lakeSampleDepth2),
+                           .default = "0 - 0.5")) %>%
+  mutate(ecosystem = "Environmental") %>%
+  mutate(ecosystem_category = "Aquatic") %>%
+  mutate(ecosystem_type = "Freshwater") %>%
+  mutate(ecosystem_subtype = case_when(aquaticSiteType == "stream" ~ "Creek",
+                                       aquaticSiteType == "river" ~ "River",
+                                       aquaticSiteType == "lake" ~ "Lake")) %>%
+  mutate(specific_ecosystem = case_when((aquaticSiteType == "lake" & sampleCode == "C0") ~ "Epilimnion/Euphotic zone",
+                                        (aquaticSiteType == "lake" & sampleCode == "C1") ~ "Epilimnion/Euphotic zone",
+                                        (aquaticSiteType == "lake" & sampleCode == "C2") ~ "Hypolimnion/Profundal zone",
+                                        .default = "Unclassified")) %>%
+  select(sampleID,siteID,aquaticSiteType,`geographic location (latitude and longitude)`,
+         elevation,`collection date`,`collection time, GMT`,temperature,ecosystem,ecosystem_category,ecosystem_type,
+         ecosystem_subtype,specific_ecosystem,depth)
 
 
 View(waterMeta)
 
-# get envo map 
+# get envo map
 ## from github
 # "https://github.com/NEONScience/nmdc_microbe/blob/main/data/envo_map_sw_plots.tsv" 
 # to this:
@@ -114,10 +137,11 @@ swEnvo <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe
 
 View(swEnvo)
 
-water.meta.envo <- left_join(waterMeta,swEnvo, by = c("parentSampleID","aquaticSiteType"))
+water.meta.envo <- left_join(waterMeta,swEnvo, by = c("sampleID","aquaticSiteType"))
 
 View(water.meta.envo)
 
+###############################
 ## now benthic
 ambFieldData <- loadByProduct(
   dpID = 'DP1.20280.001',
@@ -136,18 +160,121 @@ View(ambFieldData$mmg_benthicDnaExtraction)
 benthMetaAmb <- ambFieldData$amb_fieldParent %>%
   filter(sampleID %in% benthicParents) %>%
   separate(collectDate, c("collection date","collection time, GMT"), sep = " ") %>%
-  mutate(`geographic location (latitude and longitude)` = paste0(decimalLatitude, " ", decimalLongitude)) %>% # correct to paste0
-  select(sampleID,siteID,aquaticSiteType,`geographic location (latitude and longitude)`,elevation,`collection date`,`collection time, GMT`,
+  mutate(temperature = "") %>%
+  mutate(`geographic location (latitude and longitude)` = paste0(decimalLatitude, " ", decimalLongitude)) %>%
+  mutate(depth = "0 - 0.5") %>%
+  mutate(ecosystem = "Environmental") %>%
+  mutate(ecosystem_category = "Aquatic") %>%
+  mutate(ecosystem_type = "Freshwater") %>%
+  mutate(ecosystem_subtype = "Creek") %>%
+  mutate(specific_ecosystem = case_when(sampleMaterial == "sediment" ~ "Sediment",
+         .default = "Unclassified")) %>%
+  select(sampleID,siteID,aquaticSiteType,`geographic location (latitude and longitude)`,elevation,`collection date`,`collection time, GMT`,temperature,
          habitatType,aquMicrobeType,substratumSizeClass,geneticSamplePrepMethod,geneticFilteredSampleVolume,
-         sampleMaterial)
+         sampleMaterial,ecosystem,ecosystem_category,ecosystem_type,ecosystem_subtype,specific_ecosystem,depth)
 
 View(benthMetaAmb)
 
+# join with envo data 
+
+benthEnvo <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/envo_map_benth_plots.tsv", delim="\t", show_col_types = FALSE)
+
+View(benthEnvo)
+
+benthic.meta.envo <- left_join(benthMetaAmb,benthEnvo, by = c("habitatType","aquMicrobeType","aquaticSiteType"))
+
+View(benthic.meta.envo)
+
+benthic.meta.envo <- benthic.meta.envo %>%
+  select(sampleID,siteID,aquaticSiteType,`geographic location (latitude and longitude)`,elevation,`collection date`,
+         `collection time, GMT`,temperature,envoBroadScale_id,envoBroadScale_label,envoLocalScale_id,envoLocalScale_label,
+         envoMedium_id,envoMedium_label,ecosystem,ecosystem_category,ecosystem_type,ecosystem_subtype,specific_ecosystem,depth)
 
 
+####
+## put aquatics together
+aquatic.meta.envo <- rbind(benthic.meta.envo,water.meta.envo)
 
+View(aquatic.meta.envo)
 
+#################################
+## add field site metadata
 
+siteMetadata <- read_csv("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/NEON_Field_Site_Metadata_20231026.csv", show_col_types = FALSE)
+
+View(siteMetadata)
+
+field.nmdc <- siteMetadata %>%
+  mutate(`geographic location (country and/or sea,region)` = paste0("USA: ",field_site_state,", ", field_site_county, " County")) %>%
+  mutate(siteID = field_site_id) %>%
+  select(siteID, `geographic location (country and/or sea,region)`)
+
+View(field.nmdc)
+
+aquatic.meta.envo.field <- left_join(aquatic.meta.envo,field.nmdc, by = "siteID")
+
+View(aquatic.meta.envo.field)
+
+# sample storage temperature = "-80 cel"
+# analysis/data type = "metagenomics"
+
+# miscellaneous parameter = category
+
+inputSampleTableCat <- inputSampleTable %>%
+  select(dnaSampleID,sampleID,category)
+
+aquatic.full.meta <- left_join(inputSampleTableCat,aquatic.meta.envo.field, by = "sampleID")
+
+View(aquatic.full.meta)
+
+aquatic.all.meta <- aquatic.full.meta %>%
+  mutate(`sample name` = dnaSampleID) %>%
+  mutate(`sample storage temperature` = "-80 cel") %>%
+  mutate(`analysis/data type` = "metagenomics") %>%
+  mutate(`miscellaneous parameter` = category) %>%
+  mutate(`elevation, meters` = elevation) %>%
+  mutate(`depth,meters` = depth) %>%
+  mutate(`broad-scale environmental context` = paste0(envoBroadScale_label," [",envoBroadScale_id,"]")) %>%
+  mutate(`local environmental context` = paste0(envoLocalScale_label, " [",envoLocalScale_id,"]")) %>%
+  mutate(`environmental medium` = paste0(envoMedium_label, " [",envoMedium_id,"]")) %>%
+  select(`sample name`,`analysis/data type`,`broad-scale environmental context`,`local environmental context`,`environmental medium`,
+         ecosystem,ecosystem_category,ecosystem_type,ecosystem_subtype,specific_ecosystem,`miscellaneous parameter`,temperature,
+         `collection date`,`geographic location (country and/or sea,region)`,`geographic location (latitude and longitude)`,
+         `elevation, meters`,`sample storage temperature`,`depth,meters`,`collection time, GMT`)
+
+View(aquatic.all.meta)
+
+############################
+## JGI metadata
+
+sterivex <- c("biofilm","water")
+biofilms <- c("sediment","plant-associated")
+
+jgiMetadata <- inputSampleTable %>%
+  mutate(`sample name` = dnaSampleID) %>%
+  mutate(`analysis/data type` = "metagenomics") %>%
+  mutate(`DNA sample name` = dnaSampleID) %>%
+  mutate(`DNA concentration in ng/ul` = nucleicAcidConcentration) %>%
+  mutate(`DNA volume in ul` = DNA_volume) %>%
+  mutate(`DNA container label` = vars$plateName) %>%
+  mutate(`DNA container type` = 'plate') %>%
+  mutate(`DNA plate position` = JGI_Well_Number) %>%
+  mutate(`DNA sample format` = "10 mM Tris-HCl") %>%
+  mutate(`DNase treatment` = "no") %>%
+  mutate(`DNA isolation method` = case_when(category %in% sterivex ~ "Qiagen DNeasy PowerWater Sterivex",
+                                            category %in% biofilms ~ "Qiagen DNeasy PowerBiofilm")) %>%
+  select(`sample name`,`analysis/data type`,
+         `DNA sample name`,`DNA concentration in ng/ul`,`DNA volume in ul`,
+         `DNA container label`,`DNA container type`,`DNA plate position`,`DNA sample format`,
+         `DNase treatment`,`DNA isolation method`)
+
+View(jgiMetadata)
+
+## put together
+
+fileName <- paste0("/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/",vars$metadataFileName)
+
+write_xlsx(list("water" = aquatic.all.meta, "JGI" = jgiMetadata), fileName)
 
 
 
