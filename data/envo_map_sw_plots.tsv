@@ -1,4 +1,4 @@
-sampleID	aquaticSiteType	envoBroadScale_id	envoBroadScale_label	envoLocalScale_id	envoLocalScale_label	envoMedium_id	envoMedium_label
+parentSampleID	aquaticSiteType	envoBroadScale_id	envoBroadScale_label	envoLocalScale_id	envoLocalScale_label	envoMedium_id	envoMedium_label
 LEWI.SS.20230724	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
 POSE.SS.20230717	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
 CUPE.SS.20230711	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
@@ -14,3 +14,16 @@ COMO.SS.20230710	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	wate
 REDB.SS.20230705	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
 MART.SS.20230705	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
 MCRA.SS.20230712	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+WLOU.SS.20230718	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+BIGC.SS.20230710	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+CRAM.C1.20230801	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimnion	ENVO:04000007	lake water
+CRAM.C2.20230801	lake	ENVO:01000252	freshwater lake biome	ENVO:00002269	thermocline	ENVO:04000007	lake water
+LIRO.C1.20230807	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimnion	ENVO:04000007	lake water
+CARI.SS.20230731	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+HOPB.SS.20230719	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+BARC.C0.20230801	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimnion	ENVO:04000007	lake water
+FLNT.C0.20230815	river	ENVO:01000253	freshwater river biome	ENVO:01001191	water surface	ENVO:01000599	river water
+SUGG.C0.20230801	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimnion	ENVO:04000007	lake water
+PRLA.C0.20230808	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimnion	ENVO:04000007	lake water
+KING.SS.20230712	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+MCDI.SS.20230711	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
