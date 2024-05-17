@@ -8,12 +8,18 @@ library(readxl)
 #library(RCurl)
 
 ##
+# Ok. So here's the things I found to make the import work & submission valid (minus fields I know won't validate or are missing)
+# depth,meters -> depth, meters
+# JGI -> JGI MG (tab name)
+# DNase treatment -> DNase treatment DNA
+# And for the plate well, it can't have 01. It has to be just 1.. so B1, C1, B2, etc
+# not B01
 ## read the yaml as argument (to do)
 options(echo=TRUE) # if you want see commands in output file
 args <- commandArgs(trailingOnly = TRUE)
 
 ## try to set up option to run from RStudio or command line
-yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate3_variables.yaml" # add name here 
+yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate4_variables.yaml" # add name here 
 # in quotes if you are using RStudio
 
 # if the name is not modified, the script will look for CLI argument
@@ -36,17 +42,22 @@ View(inputSampleTable)
 #biofilmTypes <- c("EPILITHON","EPIXYLON")
 # sediment types: "EPIPSAMMON" "EPIPELON"
 # filter out blank rows, and ensure all sample names are upper case
+## change category to following: 
+## microbial mat/biofilm [MIXS:0016008]
+# water [MIXS:0016014]
+## sediment [MIXS:0016011] , plant associated [MIXS:0016010]
+
 inputSampleTable <- inputSampleTable %>%
   filter(dnaSampleID != "LEAVE BLANK") %>%
   mutate(dnaSampleID = toupper(dnaSampleID)) %>%
   mutate(sampleID = gsub("\\.DNA-DNA[1-2]","",dnaSampleID)) %>%
-  mutate(category = case_when(grepl("SS",dnaSampleID) ~ "water",
-                              grepl("C[0-3]",dnaSampleID) ~ "water",
-                              grepl("EPILITHON",dnaSampleID) ~ "biofilm",
-                              grepl("EPIXYLON",dnaSampleID) ~ "biofilm",
-                              grepl("EPIPHYTON",dnaSampleID) ~ "plant-associated",
-                              grepl("EPIPSAMMON",dnaSampleID) ~ "sediment",
-                              grepl("EPIPELON",dnaSampleID) ~ "sediment",
+  mutate(category = case_when(grepl("SS",dnaSampleID) ~ "water [MIXS:0016014]",
+                              grepl("C[0-3]",dnaSampleID) ~ "water [MIXS:0016014]",
+                              grepl("EPILITHON",dnaSampleID) ~ "microbial mat/biofilm [MIXS:0016008]",
+                              grepl("EPIXYLON",dnaSampleID) ~ "microbial mat/biofilm [MIXS:0016008]",
+                              grepl("EPIPHYTON",dnaSampleID) ~ "plant associated [MIXS:0016010]",
+                              grepl("EPIPSAMMON",dnaSampleID) ~ "sediment [MIXS:0016011]",
+                              grepl("EPIPELON",dnaSampleID) ~ "sediment [MIXS:0016011]",
                                  .default = "benthic"))
 
 View(inputSampleTable)
@@ -55,7 +66,7 @@ View(inputSampleTable)
 ## water 
 
 waterSamples <- inputSampleTable %>%
-  filter(category == "water") %>%
+  filter(category == "water [MIXS:0016014]") %>%
   pull(dnaSampleID)
 
 waterSites <- unique(sapply(str_split(waterSamples,"\\."), getElement, 1))
@@ -65,7 +76,7 @@ waterSites
 waterParents <- sapply(waterSamples, function(x) gsub("\\.DNA-DNA1","",x))
 
 ## benthic
-benthCategories <- c("biofilm","plant-associated","sediment")
+benthCategories <- c("microbial mat/biofilm [MIXS:0016008]","plant associated [MIXS:0016010]","sediment [MIXS:0016011]")
 
 benthicSamples <- inputSampleTable %>%
   filter(category %in% benthCategories) %>%
@@ -228,45 +239,51 @@ aquatic.full.meta <- left_join(inputSampleTableCat,aquatic.meta.envo.field, by =
 View(aquatic.full.meta)
 
 aquatic.all.meta <- aquatic.full.meta %>%
-  mutate(`sample name` = dnaSampleID) %>%
+  mutate(`sample name` = sampleID) %>%
   mutate(`sample storage temperature` = "-80 cel") %>%
   mutate(`analysis/data type` = "metagenomics") %>%
-  mutate(`miscellaneous parameter` = category) %>%
+  mutate(`experimental factor` = category) %>%
   mutate(`elevation, meters` = elevation) %>%
-  mutate(`depth,meters` = depth) %>%
+  mutate(`depth, meters` = depth) %>%
   mutate(`broad-scale environmental context` = paste0(envoBroadScale_label," [",envoBroadScale_id,"]")) %>%
   mutate(`local environmental context` = paste0(envoLocalScale_label, " [",envoLocalScale_id,"]")) %>%
   mutate(`environmental medium` = paste0(envoMedium_label, " [",envoMedium_id,"]")) %>%
   select(`sample name`,`analysis/data type`,`broad-scale environmental context`,`local environmental context`,`environmental medium`,
-         ecosystem,ecosystem_category,ecosystem_type,ecosystem_subtype,specific_ecosystem,`miscellaneous parameter`,temperature,
+         ecosystem,ecosystem_category,ecosystem_type,ecosystem_subtype,specific_ecosystem,`experimental factor`,temperature,
          `collection date`,`geographic location (country and/or sea,region)`,`geographic location (latitude and longitude)`,
-         `elevation, meters`,`sample storage temperature`,`depth,meters`,`collection time, GMT`)
+         `elevation, meters`,`sample storage temperature`,`depth, meters`,`collection time, GMT`)
 
 View(aquatic.all.meta)
 
 ############################
 ## JGI metadata
+# note: regex in pipe below for DNA plate position from answer here:
+## https://stackoverflow.com/questions/42796247/how-to-convert-a01-to-a1-using-r
+## change category to following: 
+## microbial mat/biofilm [MIXS:0016008]
+# water [MIXS:0016014]
+## sediment [MIXS:0016011] , plant associated [MIXS:0016010]
 
-sterivex <- c("biofilm","water")
-biofilms <- c("sediment","plant-associated")
+sterivex <- c("microbial mat/biofilm [MIXS:0016008]","water [MIXS:0016014]")
+biofilms <- c("sediment [MIXS:0016011]","plant associated [MIXS:0016010]")
 
 jgiMetadata <- inputSampleTable %>%
-  mutate(`sample name` = dnaSampleID) %>%
+  mutate(`sample name` = sampleID) %>%
   mutate(`analysis/data type` = "metagenomics") %>%
   mutate(`DNA sample name` = dnaSampleID) %>%
   mutate(`DNA concentration in ng/ul` = nucleicAcidConcentration) %>%
   mutate(`DNA volume in ul` = DNA_volume) %>%
   mutate(`DNA container label` = vars$plateName) %>%
   mutate(`DNA container type` = 'plate') %>%
-  mutate(`DNA plate position` = JGI_Well_Number) %>%
+  mutate(`DNA plate position` = sub('(?<![0-9])0*(?=[0-9])', '', JGI_Well_Number, perl=TRUE)) %>% #gsub("[A-H]0","\\1",JGI_Well_Number)) %>%
   mutate(`DNA sample format` = "10 mM Tris-HCl") %>%
-  mutate(`DNase treatment` = "no") %>%
+  mutate(`DNase treatment DNA` = "no") %>%
   mutate(`DNA isolation method` = case_when(category %in% sterivex ~ "Qiagen DNeasy PowerWater Sterivex",
                                             category %in% biofilms ~ "Qiagen DNeasy PowerBiofilm")) %>%
   select(`sample name`,`analysis/data type`,
          `DNA sample name`,`DNA concentration in ng/ul`,`DNA volume in ul`,
          `DNA container label`,`DNA container type`,`DNA plate position`,`DNA sample format`,
-         `DNase treatment`,`DNA isolation method`)
+         `DNase treatment DNA`,`DNA isolation method`)
 
 View(jgiMetadata)
 
@@ -274,7 +291,7 @@ View(jgiMetadata)
 
 fileName <- paste0("/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/",vars$metadataFileName)
 
-write_xlsx(list("water" = aquatic.all.meta, "JGI" = jgiMetadata), fileName)
+write_xlsx(list("water" = aquatic.all.meta, "JGI MG" = jgiMetadata), fileName)
 
 
 

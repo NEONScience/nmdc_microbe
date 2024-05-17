@@ -6,6 +6,7 @@ library(respirometry)
 library(yaml)
 #library(xlsx)
 library(writexl)
+library(readxl)
 
 # for sourcing the other files in the repo
 chdir = T
@@ -27,7 +28,7 @@ options(echo=TRUE) # if you want see commands in output file
 args <- commandArgs(trailingOnly = TRUE)
 
 ## try to set up option to run from RStudio or command line
-yamlFileName = "" # add name here in quotes if you are using RStudio
+yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate5_variables.yaml" # add name here in quotes if you are using RStudio
 
 # if the name is not modified, the script will look for CLI argument
 if(yamlFileName == ""){
@@ -39,13 +40,16 @@ vars$inputSampleFile
 vars$startDate
 vars$plateName
 vars$metadataFileName
-
+vars$fieldMetaFile
 
 # WORKFLOW
 ## import sample table
 
-inputSampleTable <- read_csv(vars$inputSampleFile, show_col_types = FALSE)
-  
+#inputSampleTable <- read_csv(vars$inputSampleFile, show_col_types = FALSE)
+inputSampleTable <- read_excel(vars$inputSampleFile)
+
+View(inputSampleTable) 
+ 
 ##View(inputSampleTable)
 
 inputSampleTable <- inputSampleTable %>%
@@ -53,6 +57,8 @@ inputSampleTable <- inputSampleTable %>%
   mutate(dnaSampleID = toupper(dnaSampleID))
 
 plateSamples <- inputSampleTable$dnaSampleID
+
+plateSampleComps <- sapply(plateSamples,function(x) gsub("-DNA[1-2]","",x))
 
 metaSites <- unique(sapply(str_split(plateSamples,"_"), getElement, 1))
 ## maybe not needed:
@@ -71,7 +77,7 @@ metaChemData <- loadByProduct(
 )
 
 genSample <- metaChemData$sls_metagenomicsPooling %>%
-  filter(genomicsSampleID %in% plateSamples) %>%
+  filter(genomicsSampleID %in% plateSampleComps) %>%
   tidyr::separate(genomicsPooledIDList, into=c("first","second","third"),sep="\\|",fill="right") %>%
   dplyr::select(genomicsSampleID,first,second,third) %>% 
   tidyr::pivot_longer(cols=c("first","second","third"),values_to = "sampleID") %>%
@@ -80,7 +86,7 @@ genSample <- metaChemData$sls_metagenomicsPooling %>%
 
 # now view
 
-#View(genSample) # 251
+View(genSample) # 251
 
 genSampleIDs <- genSample$sampleID
 
@@ -91,13 +97,15 @@ metaChemCore <- metaChemData$sls_soilCoreCollection %>%
   select(sampleID,siteID,plotID,horizon,nlcdClass,decimalLatitude,decimalLongitude,elevation,
          collectDate,soilTemp,sampleTopDepth,sampleBottomDepth,soilSamplingDevice)
 
-#dim(metaChemCore) # 250
+dim(metaChemCore) # 250
 
 ## combine first two tables 
 
 combTab1 <- left_join(genSample,metaChemCore, by = "sampleID")
 
-#dim(combTab1) # 251
+dim(combTab1) # 251
+genomicsSampleID <- unique(combTab1$genomicsSampleID)
+setdiff(plateSampleComps,genomicsSampleID)
 
 ##
 
@@ -115,7 +123,7 @@ meta_pH <- metaChemData$sls_soilpH %>%
 
 combTab2 <- left_join(combTab1,meta_pH, by="sampleID")
 
-#dim(combTab2)
+View(combTab2)
 
 ##### summarize for comp metadata
 ## add pH sum X
@@ -148,23 +156,23 @@ combTab3 <- combTab2 %>%
          `elevation, meters`,`depth, meters`,`soil horizon`,temperature,`collection time, GMT`,
          `sample collection device`,pH)
 
-#View(combTab3) # 92
+View(combTab3) # 92
 
 ### 
 ## add sample linkage 
 sampleLinks <- metaChemData$sls_metagenomicsPooling %>%
-  filter(genomicsSampleID %in% plateSamples) %>%
+  filter(genomicsSampleID %in% plateSampleComps) %>%
   mutate(linkage1 = gsub("\\|",",",genomicsPooledIDList)) %>%
   mutate(`sample linkage` = paste0("composite: ",linkage1)) %>%
   mutate(sampleName = genomicsSampleID) %>%
   select(sampleName,`sample linkage`)
 
-# View(sampleLinks)
+View(sampleLinks)
 
 ## combine with all 
 combTab4 <- left_join(combTab3,sampleLinks, by="sampleName")
 #
-#dim(combTab4)
+dim(combTab4)
 
 #################
 # compile metadata for individual samples (not composites)
@@ -188,10 +196,10 @@ indiv1 <- combTab2 %>%
 #dim(indiv1)
 
 indiv1['sample linkage'] <- ''
-
+View(indiv1)
 ###
 # add field site metadata # change to relative path
-fieldMeta <- read_csv("../data/NEON_Field_Site_Metadata_20231026.csv",show_col_types = FALSE)
+fieldMeta <- read_csv(vars$fieldMetaFile,show_col_types = FALSE)
 
 #View(fieldMeta)
 
@@ -201,7 +209,7 @@ fieldForSub <- fieldMeta %>%
          field_domint_plant_species,field_megapit_soil_family,field_soil_subgroup)
 
 
-#dim(fieldForSub)
+dim(fieldForSub)
 
 field.nmdc <- fieldForSub %>%
   mutate(`geographic location (country and/or sea,region)` = paste0("USA: ",field_site_state,", ", field_site_county, " County")) %>%
@@ -210,6 +218,7 @@ field.nmdc <- fieldForSub %>%
   mutate(siteID = field_site_id) %>%
   select(siteID, `mean annual precipitation`,`mean annual temperature`,`geographic location (country and/or sea,region)` )
 
+View(field.nmdc)
 #dim(field.nmdc)
 #colnames(field.nmdc)
 
@@ -226,8 +235,31 @@ indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
 envoMap <- read_delim("/Users/crossh/repos/nmdc_microbe/data/envo_map_soil_plots.tsv",
                       delim = "\t",show_col_types = FALSE)
 
-#View(envoMap)
+View(envoMap)
 
+envoNeeded <- c()
+
+for (i in metaPlots){
+  if(!i %in% envoMap$plotID){
+    envoNeeded <- append(envoNeeded,i)
+  }
+}
+
+envoNeeded
+
+# create a table with just envoNeeded and nlcdClass
+envoNeedTable <- combTab3 %>%
+  dplyr::filter(plotID %in% envoNeeded) %>%
+  select(plotID,nlcdClass) %>%
+  unique()
+
+View(envoNeedTable)
+write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/envoPlots_needed_for_plate5.csv")
+## now reimport envomap once new terms are added
+envoMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/envo_map_soil_plots.tsv",
+                      delim = "\t",show_col_types = FALSE)
+
+######
 envoMap1 <- envoMap %>%
   mutate(`broad-scale environmental context` = paste0(envoBroadScale_label," [",envoBroadScale_id,"]")) %>%
   mutate(`local environmental context` = paste0(envoLocalScale_label, " [",envoLocalScale_id,"]")) %>%
