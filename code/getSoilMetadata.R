@@ -224,15 +224,15 @@ View(field.nmdc)
 
 ## combine with composites
 combTab5 <- left_join(combTab4,field.nmdc, by="siteID")
-#dim(combTab5)
+dim(combTab5)
 ## combine with single samples
 indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
-#dim(indiv2)
+dim(indiv2)
 
 ## add envo and GOLD
 ### envo
 
-envoMap <- read_delim("/Users/crossh/repos/nmdc_microbe/data/envo_map_soil_plots.tsv",
+envoMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/envo_map_soil_plots.tsv",
                       delim = "\t",show_col_types = FALSE)
 
 View(envoMap)
@@ -255,7 +255,7 @@ envoNeedTable <- combTab3 %>%
 
 View(envoNeedTable)
 write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/envoPlots_needed_for_plate5.csv")
-## now reimport envomap once new terms are added
+## now reimport envomap once new terms are added [updated to download]
 envoMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/envo_map_soil_plots.tsv",
                       delim = "\t",show_col_types = FALSE)
 
@@ -265,7 +265,7 @@ envoMap1 <- envoMap %>%
   mutate(`local environmental context` = paste0(envoLocalScale_label, " [",envoLocalScale_id,"]")) %>%
   select(plotID,`broad-scale environmental context` ,`local environmental context`)
 
-#View(envoMap1)
+View(envoMap1)
 
 ## now join
 
@@ -273,21 +273,21 @@ combTab6 <- left_join(combTab5,envoMap1, by = "plotID", relationship = "many-to-
 combTab6 <- unique(combTab6)
 #dim(combTab6) #92 #duplicate row
 
-combTab6['environmental_medium'] <- "soil [ENVO:00001998]"
+combTab6['environmental medium'] <- "soil [ENVO:00001998]"
 combTab6['analysis/data type'] <- "metagenomics"
 combTab6['environmental package'] <- "soil"
 
 # now indiv
 indiv3 <- left_join(indiv2,envoMap1, by = "plotID", relationship = "many-to-many")
-#dim(indiv3) # duplicates!
+View(indiv3) # duplicates!
 
-indiv3['environmental_medium'] <- "soil [ENVO:00001998]"
-indiv3['analysis/data type'] <- "metagenomics"
+indiv3['environmental medium'] <- "soil [ENVO:00001998]"
+indiv3['analysis/data type'] <- "metagenomics" #add later so metagenomics only for composite samples
 indiv3['environmental package'] <- "soil"
 
 ## subtypes 
 
-subtypeMap <- read_delim("/Users/crossh/repos/nmdc_microbe/data/ecosystem_subtype_soil_map.tsv",
+subtypeMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/ecosystem_subtype_soil_map.tsv",
            delim="\t",show_col_types = FALSE)
 
 #View(subtypeMap)
@@ -300,23 +300,23 @@ combTab6['ecosystem_type'] <- 'Soil'
 
 combTab7 <- left_join(combTab6,subtypeMap, by = "nlcdClass", relationship = "many-to-many")
 
-#dim(combTab7)
+View(combTab7)
 
 ## now with indiv
 indiv3['ecosystem'] <- 'Environmental'
 indiv3['ecosystem_category'] <- 'Terrestrial'
 indiv3['ecosystem_type'] <- 'Soil'
-
+dim(indiv3)
 indiv4 <- left_join(indiv3,subtypeMap, by = "nlcdClass", relationship = "many-to-many")
 
-#dim(indiv4)
+View(indiv4)
 
 # need to rbind, sort combTab7,indiv4, and add consistent variables
 fullSampleTab <- rbind(combTab7,indiv4)
 
 fullSampleTabOrd <- fullSampleTab[order(fullSampleTab$sampleName, decreasing=T),]
 
-#View(fullSampleTabOrd)
+View(fullSampleTabOrd)
 
 ## add remaining consistent variables 
 fullSampleTabOrd['growth facility'] <- "field"
@@ -331,13 +331,17 @@ colnames(fullSampleTabOrd)
 finalMetadataTab <- fullSampleTabOrd %>%
   mutate(`soil horizon` = paste0(`soil horizon`, " horizon")) %>%
   mutate(`sample name` = sampleName, .before = sampleName) %>%
+  mutate(`analysis/data type` = case_when(`sample linkage` == '' ~ "bulk chemistry",
+                                          is.na(`sample linkage`) ~ "bulk chemistry",
+                                          .default = "metagenomics")) %>%
+  mutate(temperature = paste0(round(temperature,digits=1), " degree Celsius")) %>%
   select(-c(sampleName,siteID,plotID,nlcdClass))
 
 
-#View(finalMetadataTab) # 345, 28 columns
+View(finalMetadataTab) # 345, 28 columns
 # write to excel file 
 
-write_xlsx(finalMetadataTab,vars$metadataFileName)
+#write_xlsx(finalMetadataTab,vars$metadataFileName)
 
 ###################
 ## now JGI metadata
@@ -347,27 +351,34 @@ projectName = "Continental-scale metagenomics: leveraging the NSF National Ecolo
 #View(inputSampleTable)
 
 jgiMetadata <- inputSampleTable %>%
-  mutate(`sample name` = gsub('-COMP','',dnaSampleID)) %>%
+  mutate(`sample name` = gsub('-COMP-DNA[1-2]','',dnaSampleID)) %>%
   mutate(`analysis/data type` = "metagenomics") %>%
   mutate(`DNA sample name` = dnaSampleID) %>%
   mutate(`DNA concentration in ng/ul` = nucleicAcidConcentration) %>%
   mutate(`DNA volume in ul` = DNA_volume) %>%
   mutate(`DNA container label` = vars$plateName) %>%
   mutate(`DNA container type` = 'plate') %>%
-  mutate(`DNA plate position` = JGI_Well_Number) %>%
+  mutate(`DNA plate position` = sub('(?<![0-9])0*(?=[0-9])', '', JGI_Well_Number, perl=TRUE)) %>% ## added to change from B01 to B1
   mutate(`DNA sample format` = "10 mM Tris-HCl") %>%
-  mutate(`DNase treatment` = "no") %>%
+  mutate(`DNase treatment DNA` = "no") %>%
   mutate(`DNA isolation method` = "Qiagen DNeasy PowerSoil") %>%
   select(`sample name`,`analysis/data type`,
          `DNA sample name`,`DNA concentration in ng/ul`,`DNA volume in ul`,
          `DNA container label`,`DNA container type`,`DNA plate position`,`DNA sample format`,
-         `DNase treatment`,`DNA isolation method`)
+         `DNase treatment DNA`,`DNA isolation method`)
 
-#View(jgiMetadata)
+View(jgiMetadata)
+# update to write to same spreadsheet
+#write_xlsx(jgiMetadata,vars$jgiMetadataFileName)
 
-write_xlsx(jgiMetadata,vars$jgiMetadataFileName)
 
+fileName <- paste0("/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/",vars$metadataFileName)
 
+write_xlsx(list("soil" = finalMetadataTab, "JGI MG" = jgiMetadata), fileName)
+
+colnames(finalMetadataTab)
+
+colnames(jgiMetadata)
 
 
 
