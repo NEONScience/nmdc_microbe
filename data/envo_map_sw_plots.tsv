@@ -27,3 +27,17 @@ SUGG.C0.20230801	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimni
 PRLA.C0.20230808	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimnion	ENVO:04000007	lake water
 KING.SS.20230712	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
 MCDI.SS.20230711	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+HOPB.SS.20230117	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+HOPB.SS.20230221	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+HOPB.SS.20230419	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+HOPB.SS.20230620	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+HOPB.SS.20230815	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+HOPB.SS.20231017	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+OKSR.SS.20230717	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+TOOK.C0.20230207	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimnion	ENVO:04000007	lake water
+TOOK.C0.20230502	lake	ENVO:01000252	freshwater lake biome	ENVO:00002131	epilimnion	ENVO:04000007	lake water
+CARI.SS.20230110	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+CARI.SS.20230314	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+CARI.SS.20230502	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+CARI.SS.20230905	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water
+CARI.SS.20231031	stream	ENVO:03605008	freshwater stream biome	ENVO:01001191	water surface	ENVO:03605006	stream water

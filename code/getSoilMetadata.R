@@ -210,7 +210,7 @@ fieldForSub <- fieldMeta %>%
 
 
 dim(fieldForSub)
-
+View(fieldForSub)
 field.nmdc <- fieldForSub %>%
   mutate(`geographic location (country and/or sea,region)` = paste0("USA: ",field_site_state,", ", field_site_county, " County")) %>%
   mutate(`mean annual precipitation` = paste(field_mean_annual_precipitation_mm, 'mm', sep = ' ')) %>%
@@ -351,7 +351,7 @@ projectName = "Continental-scale metagenomics: leveraging the NSF National Ecolo
 #View(inputSampleTable)
 
 jgiMetadata <- inputSampleTable %>%
-  mutate(`sample name` = gsub('-COMP-DNA[1-2]','',dnaSampleID)) %>%
+  mutate(`sample name` = gsub('-DNA[1-2]','',dnaSampleID)) %>%
   mutate(`analysis/data type` = "metagenomics") %>%
   mutate(`DNA sample name` = dnaSampleID) %>%
   mutate(`DNA concentration in ng/ul` = nucleicAcidConcentration) %>%
