@@ -58,7 +58,9 @@ inputSampleTable <- inputSampleTable %>%
 
 plateSamples <- inputSampleTable$dnaSampleID
 
-plateSampleComps <- sapply(plateSamples,function(x) gsub("-DNA[1-2]","",x))
+#plateSampleComps <- sapply(plateSamples,function(x) gsub("-DNA[1-2]","",x))
+
+parentSampleID <- sapply(plateSamples,function(x) gsub("-GEN-DNA[1-2]","",x))
 
 metaSites <- unique(sapply(str_split(plateSamples,"_"), getElement, 1))
 ## maybe not needed:
@@ -76,24 +78,25 @@ metaChemData <- loadByProduct(
   release = "LATEST"
 )
 
-genSample <- metaChemData$sls_metagenomicsPooling %>%
-  filter(genomicsSampleID %in% plateSampleComps) %>%
-  tidyr::separate(genomicsPooledIDList, into=c("first","second","third"),sep="\\|",fill="right") %>%
-  dplyr::select(genomicsSampleID,first,second,third) %>% 
-  tidyr::pivot_longer(cols=c("first","second","third"),values_to = "sampleID") %>%
-  dplyr::select(sampleID,genomicsSampleID) %>%
-  drop_na()
+# no longer need this 
+#genSample <- metaChemData$sls_metagenomicsPooling %>%
+#  filter(genomicsSampleID %in% plateSampleComps) %>%
+#  tidyr::separate(genomicsPooledIDList, into=c("first","second","third"),sep="\\|",fill="right") %>%
+#  dplyr::select(genomicsSampleID,first,second,third) %>% 
+#  tidyr::pivot_longer(cols=c("first","second","third"),values_to = "sampleID") %>%
+#  dplyr::select(sampleID,genomicsSampleID) %>%
+#  drop_na()
 
 # now view
 
-View(genSample) # 251
+#View(genSample) # 251
 
-genSampleIDs <- genSample$sampleID
+#genSampleIDs <- genSample$sampleID
 
 # get soil chem data
 
 metaChemCore <- metaChemData$sls_soilCoreCollection %>%
-  filter(sampleID %in% genSampleIDs) %>%
+  filter(sampleID %in% parentSampleID) %>%
   select(sampleID,siteID,plotID,horizon,nlcdClass,decimalLatitude,decimalLongitude,elevation,
          collectDate,soilTemp,sampleTopDepth,sampleBottomDepth,soilSamplingDevice)
 
@@ -101,10 +104,10 @@ dim(metaChemCore) # 250
 
 ## combine first two tables 
 
-combTab1 <- left_join(genSample,metaChemCore, by = "sampleID")
+#combTab1 <- left_join(genSample,metaChemCore, by = "sampleID")
 
-dim(combTab1) # 251
-genomicsSampleID <- unique(combTab1$genomicsSampleID)
+dim(metaChemCore) # 251
+genomicsSampleID <- unique(metaChemCore$genomicsSampleID)
 setdiff(plateSampleComps,genomicsSampleID)
 
 ##
@@ -116,43 +119,32 @@ setdiff(plateSampleComps,genomicsSampleID)
 #View(metaChemData$sls_soilpH)
 
 meta_pH <- metaChemData$sls_soilpH %>%
-  filter(sampleID %in% genSampleIDs) %>%
+  filter(sampleID %in% parentSampleID) %>%
   select(sampleID,soilInWaterpH)
 
 #dim(meta_pH) # 249?
 
-combTab2 <- left_join(combTab1,meta_pH, by="sampleID")
+combTab2 <- left_join(metaChemCore,meta_pH, by="sampleID")
 
 View(combTab2)
 
 ##### summarize for comp metadata
 ## add pH sum X
+
 ## change column names to correspond to nmdc fields; if nmdc field names have spaces, learn how to do this
 combTab3 <- combTab2 %>%
-  separate(collectDate, c("collectJustDate","collectTime"), sep = " ") %>%
-  group_by(genomicsSampleID) %>%
-  summarize(
-    sampleBottomDepth = max(as.numeric(sampleBottomDepth, na.rm = T)),
-    sampleTopDepth = min(sampleTopDepth, na.rm = T),
-    temperature = mean(soilTemp, na.rm = T),
-    decimalLatitude = first(decimalLatitude),
-    decimalLongitude = first(decimalLongitude),
-    `elevation, meters` = first(elevation),
-    `soil horizon` = first(horizon),
-    `collection date` = first(collectJustDate),
-    `collection time, GMT` = first(collectTime),
-    `sample collection device` = first(soilSamplingDevice),
-    plotID = first(plotID),
-    siteID = first(siteID),
-    nlcdClass = first(nlcdClass),
-    pH = mean_pH(soilInWaterpH, na.rm = T)
-  ) %>%
+  separate(collectDate, c("collection date","collection time, GMT"), sep = " ") %>%
   mutate(sampleBottomMeters = sampleBottomDepth/100) %>%
   mutate(sampleTopMeters = sampleTopDepth/100) %>%
   mutate(`depth, meters` = paste(sampleTopMeters,sampleBottomMeters, sep=" - ")) %>%
-  mutate(`geographic location (latitude and longitude)` = paste0(decimalLatitude, " ", decimalLongitude)) %>% # correct to paste0
+  mutate(`geographic location (latitude and longitude)` = paste0(decimalLatitude, " ", decimalLongitude)) %>%
   mutate(sampleName = genomicsSampleID) %>%
-  select(sampleName,siteID,plotID,nlcdClass,`collection date`,`geographic location (latitude and longitude)`,
+  mutate(`elevation, meters` = elevation) %>%
+  mutate(`soil horizon` = horizon) %>%
+  mutate(temperature = soilTemp) %>%
+  mutate(pH = soilInWaterpH) %>%
+  mutate(`sample collection device` = soilSamplingDevice) %>%
+  select(sampleID,siteID,plotID,nlcdClass,`collection date`,`geographic location (latitude and longitude)`,
          `elevation, meters`,`depth, meters`,`soil horizon`,temperature,`collection time, GMT`,
          `sample collection device`,pH)
 
@@ -160,43 +152,16 @@ View(combTab3) # 92
 
 ### 
 ## add sample linkage 
-sampleLinks <- metaChemData$sls_metagenomicsPooling %>%
-  filter(genomicsSampleID %in% plateSampleComps) %>%
-  mutate(linkage1 = gsub("\\|",",",genomicsPooledIDList)) %>%
-  mutate(`sample linkage` = paste0("composite: ",linkage1)) %>%
-  mutate(sampleName = genomicsSampleID) %>%
-  select(sampleName,`sample linkage`)
 
-View(sampleLinks)
-
-## combine with all 
-combTab4 <- left_join(combTab3,sampleLinks, by="sampleName")
-#
-dim(combTab4)
 
 #################
 # compile metadata for individual samples (not composites)
 # add pH, change to nmdc field names (except sampleName)
-indiv1 <- combTab2 %>%
-  mutate(sampleBottomMeters = sampleBottomDepth/100) %>%
-  mutate(sampleTopMeters = sampleTopDepth/100) %>%
-  mutate(`depth, meters` = paste(sampleTopMeters,sampleBottomMeters, sep=" - ")) %>%
-  mutate(`geographic location (latitude and longitude)` = paste0(decimalLatitude, " ", decimalLongitude)) %>% # changed paste to paste0
-  mutate(sampleName = sampleID) %>%
-  separate(collectDate, c("collection date","collection time, GMT"), sep = " ") %>%
-  mutate(`elevation, meters` = elevation) %>%
-  mutate(`soil horizon` = horizon) %>%
-  mutate(temperature = soilTemp) %>%
-  mutate(`sample collection device` = soilSamplingDevice) %>%
-  mutate(pH = soilInWaterpH) %>%
-  select(sampleName,siteID,plotID,nlcdClass,`collection date`,`geographic location (latitude and longitude)`,
-         `elevation, meters`,`depth, meters`,`soil horizon`,temperature,
-         `collection time, GMT`,`sample collection device`,pH)
 
 #dim(indiv1)
 
-indiv1['sample linkage'] <- ''
-View(indiv1)
+#indiv1['sample linkage'] <- ''
+#View(indiv1)
 ###
 # add field site metadata # change to relative path
 #  siteMetadata <- read_csv("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/NEON_Field_Site_Metadata_20231026.csv", show_col_types = FALSE)
@@ -215,6 +180,7 @@ fieldForSub <- fieldMeta %>%
 
 dim(fieldForSub)
 View(fieldForSub)
+
 field.nmdc <- fieldForSub %>%
   mutate(`geographic location (country and/or sea,region)` = paste0("USA: ",field_site_state,", ", field_site_county, " County")) %>%
   mutate(`mean annual precipitation` = paste(field_mean_annual_precipitation_mm, 'mm', sep = ' ')) %>%
@@ -227,11 +193,13 @@ View(field.nmdc)
 #colnames(field.nmdc)
 
 ## combine with composites
-combTab5 <- left_join(combTab4,field.nmdc, by="siteID")
+#combTab5 <- left_join(combTab4,field.nmdc, by="siteID")
+combTab5 <- left_join(combTab3,field.nmdc, by="siteID")
+
 dim(combTab5)
 ## combine with single samples
-indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
-dim(indiv2)
+#indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
+#dim(indiv2)
 
 ## add envo and GOLD
 ### envo
@@ -241,24 +209,7 @@ envoMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microb
 
 View(envoMap)
 
-envoNeeded <- c()
 
-for (i in metaPlots){
-  if(!i %in% envoMap$plotID){
-    envoNeeded <- append(envoNeeded,i)
-  }
-}
-
-envoNeeded
-
-# create a table with just envoNeeded and nlcdClass
-envoNeedTable <- combTab3 %>%
-  dplyr::filter(plotID %in% envoNeeded) %>%
-  select(plotID,nlcdClass) %>%
-  unique()
-
-View(envoNeedTable)
-write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/envoPlots_needed_for_plate5.csv")
 ## now reimport envomap once new terms are added [updated to download]
 envoMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/envo_map_soil_plots.tsv",
                       delim = "\t",show_col_types = FALSE)
@@ -282,12 +233,12 @@ combTab6['analysis/data type'] <- "metagenomics"
 combTab6['environmental package'] <- "soil"
 
 # now indiv
-indiv3 <- left_join(indiv2,envoMap1, by = "plotID", relationship = "many-to-many")
-View(indiv3) # duplicates!
+#indiv3 <- left_join(indiv2,envoMap1, by = "plotID", relationship = "many-to-many")
+#View(indiv3) # duplicates!
 
-indiv3['environmental medium'] <- "soil [ENVO:00001998]"
-indiv3['analysis/data type'] <- "metagenomics" #add later so metagenomics only for composite samples
-indiv3['environmental package'] <- "soil"
+#indiv3['environmental medium'] <- "soil [ENVO:00001998]"
+#indiv3['analysis/data type'] <- "metagenomics" #add later so metagenomics only for composite samples
+#indiv3['environmental package'] <- "soil"
 
 ## subtypes 
 
@@ -307,42 +258,40 @@ combTab7 <- left_join(combTab6,subtypeMap, by = "nlcdClass", relationship = "man
 View(combTab7)
 
 ## now with indiv
-indiv3['ecosystem'] <- 'Environmental'
-indiv3['ecosystem_category'] <- 'Terrestrial'
-indiv3['ecosystem_type'] <- 'Soil'
-dim(indiv3)
-indiv4 <- left_join(indiv3,subtypeMap, by = "nlcdClass", relationship = "many-to-many")
+#indiv3['ecosystem'] <- 'Environmental'
+#indiv3['ecosystem_category'] <- 'Terrestrial'
+#indiv3['ecosystem_type'] <- 'Soil'
+#dim(indiv3)
+#indiv4 <- left_join(indiv3,subtypeMap, by = "nlcdClass", relationship = "many-to-many")
 
-View(indiv4)
+#View(indiv4)
 
 # need to rbind, sort combTab7,indiv4, and add consistent variables
-fullSampleTab <- rbind(combTab7,indiv4)
+#fullSampleTab <- rbind(combTab7,indiv4)
 
-fullSampleTabOrd <- fullSampleTab[order(fullSampleTab$sampleName, decreasing=T),]
+#fullSampleTabOrd <- fullSampleTab[order(fullSampleTab$sampleName, decreasing=T),]
 
-View(fullSampleTabOrd)
+#View(fullSampleTabOrd)
 
 ## add remaining consistent variables 
-fullSampleTabOrd['growth facility'] <- "field"
-fullSampleTabOrd['storage conditions'] <- "frozen"
-fullSampleTabOrd['sample storage temperature'] <- "-80 Cel"
-fullSampleTabOrd['observed biotic relationship'] <- "free living"
-colnames(fullSampleTabOrd)
+combTab7['growth facility'] <- "field"
+combTab7['storage conditions'] <- "frozen"
+combTab7['sample storage temperature'] <- "-80 Cel"
+combTab7['observed biotic relationship'] <- "free living"
+colnames(combTab7)
 
 
 ## select out the siteID, plotID, and nlcdClass
 
-finalMetadataTab <- fullSampleTabOrd %>%
+finalMetadataTab <- combTab7 %>%
   mutate(`soil horizon` = paste0(`soil horizon`, " horizon")) %>%
-  mutate(`sample name` = sampleName, .before = sampleName) %>%
-  mutate(`analysis/data type` = case_when(`sample linkage` == '' ~ "bulk chemistry",
-                                          is.na(`sample linkage`) ~ "bulk chemistry",
-                                          .default = "metagenomics")) %>%
+  mutate(`sample name` = sampleID, .before = sampleID) %>%
+  mutate(`analysis/data type` = "metagenomics") %>%
   mutate(temperature = paste0(round(temperature,digits=1), " degree Celsius")) %>%
-  select(-c(sampleName,siteID,plotID,nlcdClass))
+  select(-c(sampleID,siteID,plotID,nlcdClass))
 
 
-View(finalMetadataTab) # 345, 28 columns
+dim(finalMetadataTab) # 345, 28 columns
 # write to excel file 
 
 #write_xlsx(finalMetadataTab,vars$metadataFileName)

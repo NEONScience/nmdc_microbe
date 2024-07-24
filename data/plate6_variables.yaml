@@ -2,5 +2,5 @@
 inputSampleFile: /Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/BMI_plate_maps/AY2023_JGI_plate06_map.xlsx
 startDate: 2023-01
 plateName: NEON-JGI_AY23_plt06
-metadataFileName: NEON-JGI_AY23_plt04_metadata.xlsx
-jgiMetadataFileName: NEON-JGI_AY23_plt04_jgi_metadata.xlsx
+metadataFileName: NEON-JGI_AY23_plt06_metadata.xlsx
+jgiMetadataFileName: NEON-JGI_AY23_plt06_jgi_metadata.xlsx
