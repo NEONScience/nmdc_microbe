@@ -19,7 +19,7 @@ options(echo=TRUE) # if you want see commands in output file
 args <- commandArgs(trailingOnly = TRUE)
 
 ## try to set up option to run from RStudio or command line
-yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate6_variables.yaml" # add name here 
+yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate7a_variables.yaml" # add name here 
 # in quotes if you are using RStudio
 
 # if the name is not modified, the script will look for CLI argument

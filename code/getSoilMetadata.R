@@ -202,9 +202,9 @@ View(indiv1)
 #  siteMetadata <- read_csv("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/NEON_Field_Site_Metadata_20231026.csv", show_col_types = FALSE)
 
 #fieldMeta <- read_csv(vars$fieldMetaFile,show_col_types = FALSE)
-
-fieldMeta <- read_csv("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/NEON_Field_Site_Metadata_20231026.csv", show_col_types = FALSE)
-
+#fieldMeta <- read_csv("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/NEON_Field_Site_Metadata_20231026.csv", show_col_types = FALSE)
+# new field meta for 2024
+fieldMeta <- read_csv("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/NEON_Field_Site_Metadata_20250305.csv", show_col_types = FALSE)
 #View(fieldMeta)
 
 fieldForSub <- fieldMeta %>%
