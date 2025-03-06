@@ -29,7 +29,8 @@ args <- commandArgs(trailingOnly = TRUE)
 
 ## try to set up option to run from RStudio or command line
 #yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate5_variables.yaml" # add name here in quotes if you are using RStudio
-yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate7_variables.yaml" # add name here in quotes if you are using RStudio
+#yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate7_variables.yaml" # add name here in quotes if you are using RStudio
+yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/ay24_plate1_variables.yaml" # add name here in quotes if you are using RStudio
 # if the name is not modified, the script will look for CLI argument
 if(yamlFileName == ""){
 yamlFileName <- args[1]
@@ -45,8 +46,8 @@ vars$metadataFileName
 # WORKFLOW
 ## import sample table
 
-#inputSampleTable <- read_csv(vars$inputSampleFile, show_col_types = FALSE)
-inputSampleTable <- read_excel(vars$inputSampleFile)
+inputSampleTable <- read_csv(vars$inputSampleFile, show_col_types = FALSE)
+#inputSampleTable <- read_excel(vars$inputSampleFile)
 
 View(inputSampleTable) 
  
@@ -86,7 +87,7 @@ genSample <- metaChemData$sls_metagenomicsPooling %>%
 
 # now view
 
-View(genSample) # 251
+View(genSample) # 271
 
 genSampleIDs <- genSample$sampleID
 
@@ -97,13 +98,13 @@ metaChemCore <- metaChemData$sls_soilCoreCollection %>%
   select(sampleID,siteID,plotID,horizon,nlcdClass,decimalLatitude,decimalLongitude,elevation,
          collectDate,soilTemp,sampleTopDepth,sampleBottomDepth,soilSamplingDevice)
 
-dim(metaChemCore) # 250
+dim(metaChemCore) # 271
 
 ## combine first two tables 
 
 combTab1 <- left_join(genSample,metaChemCore, by = "sampleID")
 
-dim(combTab1) # 251
+dim(combTab1) # 271
 genomicsSampleID <- unique(combTab1$genomicsSampleID)
 setdiff(plateSampleComps,genomicsSampleID)
 
@@ -172,7 +173,7 @@ View(sampleLinks)
 ## combine with all 
 combTab4 <- left_join(combTab3,sampleLinks, by="sampleName")
 #
-dim(combTab4)
+dim(combTab4) # 92?
 
 #################
 # compile metadata for individual samples (not composites)
@@ -193,7 +194,7 @@ indiv1 <- combTab2 %>%
          `elevation, meters`,`depth, meters`,`soil horizon`,temperature,
          `collection time, GMT`,`sample collection device`,pH)
 
-#dim(indiv1)
+dim(indiv1)
 
 indiv1['sample linkage'] <- ''
 View(indiv1)
@@ -210,7 +211,7 @@ fieldMeta <- read_csv("https://raw.githubusercontent.com/NEONScience/nmdc_microb
 fieldForSub <- fieldMeta %>%
   select(field_site_id,field_site_name,field_site_country,field_site_state,field_site_county,
          field_mean_annual_temperature_C,field_mean_annual_precipitation_mm,field_dominant_nlcd_classes,
-         field_domint_plant_species,field_megapit_soil_family,field_soil_subgroup)
+         field_dominant_plant_species,field_megapit_soil_family,field_soil_subgroup)
 
 
 dim(fieldForSub)
@@ -228,7 +229,7 @@ View(field.nmdc)
 
 ## combine with composites
 combTab5 <- left_join(combTab4,field.nmdc, by="siteID")
-dim(combTab5)
+dim(combTab5) # 92?
 ## combine with single samples
 indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
 dim(indiv2)
@@ -258,7 +259,8 @@ envoNeedTable <- combTab3 %>%
   unique()
 
 View(envoNeedTable)
-write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/envoPlots_needed_for_plate5.csv")
+#write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/envoPlots_needed_for_plate5.csv")
+write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/ingests_AY2024/envoPlots_needed_for_ay24_plate1.csv")
 ## now reimport envomap once new terms are added [updated to download]
 envoMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/envo_map_soil_plots.tsv",
                       delim = "\t",show_col_types = FALSE)
@@ -376,7 +378,9 @@ View(jgiMetadata)
 #write_xlsx(jgiMetadata,vars$jgiMetadataFileName)
 
 
-fileName <- paste0("/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/",vars$metadataFileName)
+#fileName <- paste0("/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/",vars$metadataFileName)
+# new directory for ay24
+fileName <- paste0("/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/ingests_AY2024/",vars$metadataFileName)
 
 write_xlsx(list("soil" = finalMetadataTab, "JGI MG" = jgiMetadata), fileName)
 
