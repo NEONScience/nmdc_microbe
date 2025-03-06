@@ -247,3 +247,26 @@ UKFS_031	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:010
 UKFS_032	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
 UKFS_043	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
 UKFS_044	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+DELA_001	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+DELA_002	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+DELA_003	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+DELA_004	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+DELA_005	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+DELA_014	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+DELA_037	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+DELA_038	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+DELA_040	woodyWetlands	ENVO:01000174	forest biome	ENVO:01000893	area of woody wetland
+DELA_041	deciduousForest	ENVO:01000201	subtropical broadleaf forest biome	ENVO:01000816	area of deciduous forest
+KONA_001	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_002	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_003	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_004	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_005	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_006	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_048	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_054	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_057	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+KONA_059	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+ONAQ_003	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SCBI_008	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
+TALL_044	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
