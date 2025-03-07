@@ -91,6 +91,7 @@ View(genSample) # 271
 
 genSampleIDs <- genSample$sampleID
 
+length(genSampleIDs)
 # get soil chem data
 
 metaChemCore <- metaChemData$sls_soilCoreCollection %>%
@@ -194,7 +195,7 @@ indiv1 <- combTab2 %>%
          `elevation, meters`,`depth, meters`,`soil horizon`,temperature,
          `collection time, GMT`,`sample collection device`,pH)
 
-dim(indiv1)
+dim(indiv1) # 271
 
 indiv1['sample linkage'] <- ''
 View(indiv1)
@@ -216,10 +217,13 @@ fieldForSub <- fieldMeta %>%
 
 dim(fieldForSub)
 View(fieldForSub)
+# note: changes in field metadata for 2025:
+# mean annual temperature now includes °C, have to get rid of this. NMDC change from 'Cel' to degree Celsius (same as soil temp now)
 field.nmdc <- fieldForSub %>%
   mutate(`geographic location (country and/or sea,region)` = paste0("USA: ",field_site_state,", ", field_site_county, " County")) %>%
   mutate(`mean annual precipitation` = paste(field_mean_annual_precipitation_mm, 'mm', sep = ' ')) %>%
-  mutate(`mean annual temperature` = paste(field_mean_annual_temperature_C, 'Cel', sep=' ')) %>%
+  mutate(annual_temp = gsub("°C","",field_mean_annual_temperature_C)) %>%
+  mutate(`mean annual temperature` = paste(annual_temp, 'degree Celsius', sep=' ')) %>%
   mutate(siteID = field_site_id) %>%
   select(siteID, `mean annual precipitation`,`mean annual temperature`,`geographic location (country and/or sea,region)` )
 
@@ -232,7 +236,7 @@ combTab5 <- left_join(combTab4,field.nmdc, by="siteID")
 dim(combTab5) # 92?
 ## combine with single samples
 indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
-dim(indiv2)
+dim(indiv2) # 271
 
 ## add envo and GOLD
 ### envo
@@ -277,14 +281,15 @@ View(envoMap1)
 
 combTab6 <- left_join(combTab5,envoMap1, by = "plotID", relationship = "many-to-many")
 combTab6 <- unique(combTab6)
-#dim(combTab6) #92 #duplicate row
+dim(combTab6) #92 #duplicate row
 
 combTab6['environmental medium'] <- "soil [ENVO:00001998]"
 combTab6['analysis/data type'] <- "metagenomics"
 combTab6['environmental package'] <- "soil"
 
 # now indiv
-indiv3 <- left_join(indiv2,envoMap1, by = "plotID", relationship = "many-to-many")
+indiv3 <- left_join(indiv2,envoMap1, by = "plotID", relationship = "many-to-many") %>%
+  unique()
 View(indiv3) # duplicates!
 
 indiv3['environmental medium'] <- "soil [ENVO:00001998]"
@@ -322,7 +327,7 @@ fullSampleTab <- rbind(combTab7,indiv4)
 
 fullSampleTabOrd <- fullSampleTab[order(fullSampleTab$sampleName, decreasing=T),]
 
-View(fullSampleTabOrd)
+View(fullSampleTabOrd) # 92 + 271? # 363
 
 ## add remaining consistent variables 
 fullSampleTabOrd['growth facility'] <- "field"
@@ -344,7 +349,7 @@ finalMetadataTab <- fullSampleTabOrd %>%
   select(-c(sampleName,siteID,plotID,nlcdClass))
 
 
-View(finalMetadataTab) # 345, 28 columns
+View(finalMetadataTab) # 363, 28 columns
 # write to excel file 
 
 #write_xlsx(finalMetadataTab,vars$metadataFileName)
