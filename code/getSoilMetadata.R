@@ -30,7 +30,8 @@ args <- commandArgs(trailingOnly = TRUE)
 ## try to set up option to run from RStudio or command line
 #yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate5_variables.yaml" # add name here in quotes if you are using RStudio
 #yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate7_variables.yaml" # add name here in quotes if you are using RStudio
-yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/ay24_plate1_variables.yaml" # add name here in quotes if you are using RStudio
+#yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/ay24_plate1_variables.yaml" # add name here in quotes if you are using RStudio
+yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/ay24_plate2_variables.yaml"
 # if the name is not modified, the script will look for CLI argument
 if(yamlFileName == ""){
 yamlFileName <- args[1]
@@ -87,7 +88,7 @@ genSample <- metaChemData$sls_metagenomicsPooling %>%
 
 # now view
 
-View(genSample) # 271
+View(genSample) # 241
 
 genSampleIDs <- genSample$sampleID
 
@@ -99,13 +100,13 @@ metaChemCore <- metaChemData$sls_soilCoreCollection %>%
   select(sampleID,siteID,plotID,horizon,nlcdClass,decimalLatitude,decimalLongitude,elevation,
          collectDate,soilTemp,sampleTopDepth,sampleBottomDepth,soilSamplingDevice)
 
-dim(metaChemCore) # 271
+dim(metaChemCore) # 241
 
 ## combine first two tables 
 
 combTab1 <- left_join(genSample,metaChemCore, by = "sampleID")
 
-dim(combTab1) # 271
+dim(combTab1) # 241
 genomicsSampleID <- unique(combTab1$genomicsSampleID)
 setdiff(plateSampleComps,genomicsSampleID)
 
@@ -195,7 +196,7 @@ indiv1 <- combTab2 %>%
          `elevation, meters`,`depth, meters`,`soil horizon`,temperature,
          `collection time, GMT`,`sample collection device`,pH)
 
-dim(indiv1) # 271
+dim(indiv1) # 241
 
 indiv1['sample linkage'] <- ''
 View(indiv1)
@@ -236,7 +237,7 @@ combTab5 <- left_join(combTab4,field.nmdc, by="siteID")
 dim(combTab5) # 92?
 ## combine with single samples
 indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
-dim(indiv2) # 271
+dim(indiv2) # 241
 
 ## add envo and GOLD
 ### envo
@@ -264,7 +265,7 @@ envoNeedTable <- combTab3 %>%
 
 View(envoNeedTable)
 #write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/envoPlots_needed_for_plate5.csv")
-write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/ingests_AY2024/envoPlots_needed_for_ay24_plate1.csv")
+write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/ingests_AY2024/envoPlots_needed_for_ay24_plate2.csv")
 ## now reimport envomap once new terms are added [updated to download]
 envoMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/envo_map_soil_plots.tsv",
                       delim = "\t",show_col_types = FALSE)

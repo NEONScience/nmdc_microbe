@@ -270,3 +270,16 @@ KONA_059	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of crop
 ONAQ_003	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
 SCBI_008	deciduousForest	ENVO:01000202	temperate broadleaf forest biome	ENVO:01000385	temperate deciduous broadleaf forest
 TALL_044	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+SOAP_002	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SOAP_003	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SOAP_004	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SOAP_006	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SOAP_007	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SOAP_025	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SOAP_031	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SOAP_043	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+SOAP_045	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_001	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_005	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_070	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+WREF_073	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
