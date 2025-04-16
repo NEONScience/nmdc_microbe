@@ -1,0 +1,6 @@
+---
+inputSampleFile: /Users/crossh/repos/nmdc_microbe/data/AY2024_JGI_plate03_samples.csv
+startDate: 2024-01
+plateName: NEON-JGI_AY24_plt03
+metadataFileName: NEON-JGI_AY24_plt03_metadata.xlsx
+jgiMetadataFileName: NEON-JGI_AY24_plt03_jgi_metadata.xlsx

@@ -283,3 +283,20 @@ WREF_001	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01
 WREF_005	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
 WREF_070	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
 WREF_073	evergreenForest	ENVO:01000211	temperate coniferous forest biome	ENVO:01000383	temperate evergreen needleleaf forest
+JERC_001	deciduousForest	ENVO:01000201	subtropical broadleaf forest biome	ENVO:01000816	area of deciduous forest
+JERC_002	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+JERC_004	cultivatedCrops	ENVO:01000245	cropland biome	ENVO:01000892	area of cropland
+JERC_005	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+JERC_006	mixedForest	ENVO:01000198	mixed forest biome	ENVO:01000431	mixed forest
+JERC_007	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+JERC_047	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+JERC_048	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+JERC_049	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+JERC_050	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+KONZ_002	grasslandHerbaceous	ENVO:01000193	temperate grassland biome	ENVO:01001811	temperate grassland
+KONZ_046	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+OSBS_004	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+OSBS_027	evergreenForest	ENVO:01000209	subtropical coniferous forest biome	ENVO:01000843	area of evergreen forest
+SRER_005	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SRER_006	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub
+SRER_053	shrubScrub	ENVO:01000215	temperate shrubland biome	ENVO:01000869	area of scrub

@@ -291,7 +291,7 @@ combTab6['environmental package'] <- "soil"
 # now indiv
 indiv3 <- left_join(indiv2,envoMap1, by = "plotID", relationship = "many-to-many") %>%
   unique()
-View(indiv3) # duplicates!
+View(indiv3) # duplicates! 241
 
 indiv3['environmental medium'] <- "soil [ENVO:00001998]"
 indiv3['analysis/data type'] <- "metagenomics" #add later so metagenomics only for composite samples
@@ -350,7 +350,7 @@ finalMetadataTab <- fullSampleTabOrd %>%
   select(-c(sampleName,siteID,plotID,nlcdClass))
 
 
-View(finalMetadataTab) # 363, 28 columns
+View(finalMetadataTab) # 333, 28 columns
 # write to excel file 
 
 #write_xlsx(finalMetadataTab,vars$metadataFileName)
