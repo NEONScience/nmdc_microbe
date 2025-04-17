@@ -31,7 +31,8 @@ args <- commandArgs(trailingOnly = TRUE)
 #yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate5_variables.yaml" # add name here in quotes if you are using RStudio
 #yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/plate7_variables.yaml" # add name here in quotes if you are using RStudio
 #yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/ay24_plate1_variables.yaml" # add name here in quotes if you are using RStudio
-yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/ay24_plate2_variables.yaml"
+#yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/ay24_plate2_variables.yaml"
+yamlFileName = "/Users/crossh/repos/nmdc_microbe/data/ay24_plate3_variables.yaml"
 # if the name is not modified, the script will look for CLI argument
 if(yamlFileName == ""){
 yamlFileName <- args[1]
@@ -88,7 +89,7 @@ genSample <- metaChemData$sls_metagenomicsPooling %>%
 
 # now view
 
-View(genSample) # 241
+View(genSample) # 204
 
 genSampleIDs <- genSample$sampleID
 
@@ -100,13 +101,13 @@ metaChemCore <- metaChemData$sls_soilCoreCollection %>%
   select(sampleID,siteID,plotID,horizon,nlcdClass,decimalLatitude,decimalLongitude,elevation,
          collectDate,soilTemp,sampleTopDepth,sampleBottomDepth,soilSamplingDevice)
 
-dim(metaChemCore) # 241
+dim(metaChemCore) # 204
 
 ## combine first two tables 
 
 combTab1 <- left_join(genSample,metaChemCore, by = "sampleID")
 
-dim(combTab1) # 241
+dim(combTab1) # 204
 genomicsSampleID <- unique(combTab1$genomicsSampleID)
 setdiff(plateSampleComps,genomicsSampleID)
 
@@ -159,7 +160,7 @@ combTab3 <- combTab2 %>%
          `elevation, meters`,`depth, meters`,`soil horizon`,temperature,`collection time, GMT`,
          `sample collection device`,pH)
 
-View(combTab3) # 92
+View(combTab3) # 92 # 76
 
 ### 
 ## add sample linkage 
@@ -175,7 +176,7 @@ View(sampleLinks)
 ## combine with all 
 combTab4 <- left_join(combTab3,sampleLinks, by="sampleName")
 #
-dim(combTab4) # 92?
+dim(combTab4) # 92? # 76
 
 #################
 # compile metadata for individual samples (not composites)
@@ -196,7 +197,7 @@ indiv1 <- combTab2 %>%
          `elevation, meters`,`depth, meters`,`soil horizon`,temperature,
          `collection time, GMT`,`sample collection device`,pH)
 
-dim(indiv1) # 241
+dim(indiv1) # 241 # 204
 
 indiv1['sample linkage'] <- ''
 View(indiv1)
@@ -234,10 +235,10 @@ View(field.nmdc)
 
 ## combine with composites
 combTab5 <- left_join(combTab4,field.nmdc, by="siteID")
-dim(combTab5) # 92?
+dim(combTab5) # 92? # 76
 ## combine with single samples
 indiv2 <- left_join(indiv1,field.nmdc, by="siteID")
-dim(indiv2) # 241
+dim(indiv2) # 241 # 204
 
 ## add envo and GOLD
 ### envo
@@ -265,7 +266,8 @@ envoNeedTable <- combTab3 %>%
 
 View(envoNeedTable)
 #write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/nmdc_ingests/envoPlots_needed_for_plate5.csv")
-write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/ingests_AY2024/envoPlots_needed_for_ay24_plate2.csv")
+#write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/ingests_AY2024/envoPlots_needed_for_ay24_plate2.csv")
+write_csv(envoNeedTable,"/Users/crossh/Library/CloudStorage/OneDrive-Personal/neon_analysis/nmdc/ingests_AY2024/envoPlots_needed_for_ay24_plate3.csv")
 ## now reimport envomap once new terms are added [updated to download]
 envoMap <- read_delim("https://raw.githubusercontent.com/NEONScience/nmdc_microbe/main/data/envo_map_soil_plots.tsv",
                       delim = "\t",show_col_types = FALSE)
@@ -282,7 +284,7 @@ View(envoMap1)
 
 combTab6 <- left_join(combTab5,envoMap1, by = "plotID", relationship = "many-to-many")
 combTab6 <- unique(combTab6)
-dim(combTab6) #92 #duplicate row
+dim(combTab6) #92 #duplicate row # 76
 
 combTab6['environmental medium'] <- "soil [ENVO:00001998]"
 combTab6['analysis/data type'] <- "metagenomics"
@@ -291,7 +293,7 @@ combTab6['environmental package'] <- "soil"
 # now indiv
 indiv3 <- left_join(indiv2,envoMap1, by = "plotID", relationship = "many-to-many") %>%
   unique()
-View(indiv3) # duplicates! 241
+View(indiv3) # duplicates! 241 # 204
 
 indiv3['environmental medium'] <- "soil [ENVO:00001998]"
 indiv3['analysis/data type'] <- "metagenomics" #add later so metagenomics only for composite samples
@@ -328,7 +330,7 @@ fullSampleTab <- rbind(combTab7,indiv4)
 
 fullSampleTabOrd <- fullSampleTab[order(fullSampleTab$sampleName, decreasing=T),]
 
-View(fullSampleTabOrd) # 92 + 271? # 363
+View(fullSampleTabOrd) # 92 + 271? # 363 # 280=76+204
 
 ## add remaining consistent variables 
 fullSampleTabOrd['growth facility'] <- "field"
